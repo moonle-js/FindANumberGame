@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #DDD9D6;
+            font-family: 'Lato', sans-serif;
+            font-family: 'Noto Sans', sans-serif;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            background-color: #17126D;
+            width: 80%;
+            max-width: 500px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding-top: 20vh;
+            padding-bottom: 20vh;
+            align-items: center;
+            border-radius: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        #gameStart{
+            border: 3px solid gold;
+            width: 150px;
+            height: 50px;
+            color: gold;
+            background: transparent;
+            box-shadow: 1px 1px 5px gold;
+            outline: none;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+       #range {
+            border: solid 1px #82CFD0;
+            border-radius: 8px;
+            height: 7px;
+            outline: none;
+            appearance: none;
+            accent-color: #F55050;
+            width: 90%;
+            margin: 0 auto;
+        }
+        /* main side */
+        main{
+            background: #17126D;
+            width: 80%;
+            max-width: 500px;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: 80vh;
+            border-radius: 25px;
+        }
+        main section{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        main section form{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .numberEnter{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            row-gap: 20px;
+        }
+        #span{
+            display: flex;
+            position: relative;
+            width: 90%;
+            margin: 0 auto;
+            border: 2px solid #3AC2DC;
+            font-size: 22px;
+        }
+        #elements{
+            display: flex;
+            height: 100px;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        #number{
+            overflow: hidden;
+            width: 50%;
+            height: 50px;
+            border-radius: 20px;
+            outline: none;
+            font-size: 25px;
+            border: 2px solid navajowhite;
+            padding: 20px;
+        }
+        #checkNumber{
+            display: flex;
+            width: 200px;
+            height: 50px;
+            color: #fff;
+            background: linear-gradient(to right, #0DA6C2, #0E39C6);
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 10px 1px 55px #3AC2DC;
+            border: none;
+            transition: .4s all ease;
+        }
+        #checkNumber:hover{
+            font-size: 22px;
+        }
+        /* Footer */
+
+        footer{
+            max-width: 500px;
+            width: 80%;
+            height: 80vh;
+            background-color: #17126D;
+            border-radius: 15px;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            animation: anim 4s linear infinite;
+            text-align: center;
+        }
+
+        @keyframes anim {
+            from{
+                background: #17126D;
+            }
+            50%{
+                background: #0E39C6;
+            }
+            75%{
+                background: #0DA6C2;
+            }
+            to{
+                background: #17126D;
+            }
+        }
+    </style>
+    
+    <header>
+        <p>
+            The rules of game: <br>
+            1. Write number from 1 to 100 that you exept from randomizer <br>
+            2. If you number is closer than 5 digits number will reflected as green <br>
+            3. If not - number will be red <br>
+            4. Navigator will navigate you - Qabaga - Arxaya <br>
+        </p>
+        <div class="checking">
+            <input type="checkbox" id="checkbox">
+            Yes i have read
+        </div>
+        <button id="gameStart">
+            Start The game
+        </button>    
+    </header>
+    
+    <main style="display: none;">
+        <section>
+            <form  action="">
+                <div class="numberEnter">
+                    <label for="number">Please add number here to see result</label>
+                    <input type="number" name="number" id="number">
+                </div>
+                <div id="elements">
+                    <input type="range" min="0" max="100" value="10" id="range" disabled>
+                    <div id="span">
+                        
+                    </div>
+                </div>
+                <p id="message">
+                    Here we go again!
+                </p>
+                <button id="checkNumber">
+                    Check number
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer style="display: none;">
+        <h2>
+            Congratulations you won
+        </h2>
+    </footer>
+
+
+
+
+    <script>
+        var startGameButton         =       document.querySelector("#gameStart"),
+            userNumber              =       document.querySelector("#number"),
+            range                   =       document.querySelector('#range'),
+            checkNumber             =       document.querySelector('#checkNumber'),
+            span                    =       document.querySelector("#span"),
+            message                 =       document.querySelector('#message'),
+            chechbox                =       document.querySelector('#checkbox'),
+            footer                  =       document.querySelector('footer'),
+            main                    =       document.querySelector('main');
+
+            var counter = 1;
+
+        
+
+
+        startGameButton.addEventListener("click", function(){
+            if(chechbox.checked){
+                var random = Math.floor(Math.random()*99 +1 )
+                console.log(random);
+                document.querySelector("header").style.display = "none";
+                document.querySelector("main").style.display = "flex";
+
+    // Alttaki funksiya muqayise edecek verilen reqemle random reqemi ve bize hara gedeceyimizi bildirecek
+                function compare(uNumber, randomNumber){
+                    if(uNumber > randomNumber){
+                        message.innerHTML = "Arxaya";
+                    }else if(uNumber == randomNumber){
+                        main.style.display = "none"
+                        footer.style.display = "flex";
+
+                    }else{
+                        message.innerHTML = "Qabaga";
+                    }
+                }
+    // Ilk olaraq bir random reqem generate elemek lazimdi window.onload ile de elemek olardi ama bele daha maraqli olar mence
+                checkNumber.addEventListener('click', function(event){
+                    event.preventDefault();
+                    // Userin daxil elediyi reqemi range de veriem ki daha yaxwi interfeys olsun
+                    range.value = userNumber.value;
+
+
+                    if(range.value - random < 5 && range.value - random >  -5){       
+                        span.innerHTML += `
+                            <span id="a${counter}" class="element" style="color:#61DE70; position:absolute; left:${range.value}%">${range.value}</span>
+                        `
+                        counter++;
+                    }else{
+                        span.innerHTML += `
+                            <span id="a${counter}" class="element" style="color:#EB001B; position:absolute; left:${range.value}%">${range.value}</span>
+                        `
+                        counter++;
+                    }
+
+                    compare(range.value, random);
+
+                    if(counter > 2){
+                        var result = Number(document.querySelector(`#a${counter-1}`).innerHTML) - Number(document.querySelector(`#a${counter-2}`).innerHTML);
+                        if((result > -5 && result < 5)){
+                            document.querySelector(`#a${counter-2}`).innerHTML = "";   
+                        }
+
+                        if(counter > 5){
+                            if(range.value - random < 5 && range.value - random >  -5){            
+                                span.innerHTML = `
+                                    <span id="a${1}" class="element" style="color:#61DE70; position:absolute; left:${range.value}%">${range.value}</span>
+                                `
+                            }else{
+                                span.innerHTML = `
+                                    <span id="a${1}" class="element" style="color:#EB001B; position:absolute; left:${range.value}%">${range.value}</span>
+                                `
+                            }
+                            counter = 2;
+                        }
+                    }
+
+                    userNumber.value = ""
+
+            })
+
+            }else{
+                alert("Please red the rules and check checkbox")
+            }
+
+        })
+
+    </script>
+
+</body>
+</html>
